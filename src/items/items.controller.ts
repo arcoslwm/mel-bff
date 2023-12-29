@@ -1,34 +1,25 @@
-import { Controller, Get, HttpException, HttpStatus, NotFoundException, Param, Query } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, NotFoundException, Param, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ItemResponseDto } from './dto/response/item-response.dto';
+
+import { ItemsService } from './items.service';
+import { MeliItemIdParam } from './dto/request/item-id-param.dto';
 
 @Controller('api/items')
 export class ItemsController {
+    constructor(private itemsService: ItemsService){}
 
     
     @Get(':id')
-    item(@Param() params): ItemResponseDto {
+    @UsePipes(new ValidationPipe())
+    item(@Param() params: MeliItemIdParam): ItemResponseDto {
 
         // throw new NotFoundException();
         // throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
         // ServiceUnavailableException
-        console.debug(`ItemsController.item item:`, params);
-        return {
-            author: {
-                name:"Luis",
-                lastname: "Arcos"
-            },
-            item:{
-               id: params.id,
-               title: "audifonos-"+params.id,
-               picture: "https://http2.mlstatic.com/D_923638-MLA54361048207_032023-I.jpg",
-               description: "wenos wenos los audifonos! vamos!",
-               price:{
-                amount:1500,
-                currency:"CLP",
-                decimals:0
-               }
-            }
-        };
+        console.debug(`ItemsController.item item:`, params.id);
+       
+        // console.debug(`ItemsController.item itemsService:`, );
+        return  this.itemsService.getById(params.id);
     }
     
     @Get()
