@@ -2,7 +2,10 @@ export class ItemDto {
     id: string;
     title: string;
     picture: string;
-    description: string;
+    condition: string;
+    free_shipping:boolean;
+    sold_quantity:number
+    description?: string;
     price: {
         currency: string;
         amount: number;
