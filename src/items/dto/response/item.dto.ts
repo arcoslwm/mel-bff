@@ -4,7 +4,7 @@ export class ItemDto {
     picture: string;
     condition: string;
     free_shipping:boolean;
-    sold_quantity:number
+    sold_quantity?:number
     description?: string;
     price: {
         currency: string;
@@ -12,18 +12,3 @@ export class ItemDto {
         decimals: number;
     };
 }
-
-// “item”: {
-//     "id": String,
-//     "title": String,
-//     "price": {
-//     "currency": String,
-//     "amount": Number,
-//     "decimals": Number,
-//     },
-//     “picture”: String,
-//     "condition": String,
-//     "free_shipping": Boolean,
-//     "sold_quantity", Number
-//     "description": String
-//     }

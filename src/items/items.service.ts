@@ -5,6 +5,10 @@ import { ItemMapper } from './mappers/item.mapper';
 import { ItemResponseDto } from './dto/response/item-response.dto';
 import { ConfigService } from '@nestjs/config';
 import { AuthorDto } from './dto/response/author.dto';
+import { SearchResponseDto } from './dto/response/search-response.dto';
+import { ItemDto } from './dto/response/item.dto';
+import { MeliSearchQuery } from './dto/request/search-query.dto';
+import { SearchResponseMapper } from './mappers/search.mapper';
 
 @Injectable()
 export class ItemsService {
@@ -29,25 +33,50 @@ export class ItemsService {
         };
     }
 
-    // private fakeItem(id: string) {
+    async search(searchQuery: MeliSearchQuery): Promise<SearchResponseDto> {
+        // console.debug(`ItemsService.search searchQuery:`, searchQuery);
+
+        const searchResponse = await firstValueFrom(
+            this.httpService.get(`${this.ApiBaseUrl}/sites/MLA/search`,
+                {
+                    params: {
+                        q: searchQuery.search,
+                        limit:searchQuery.limit,
+                    }
+                }
+            )
+        );
+        const searchResult = SearchResponseMapper.map(searchResponse.data);
+        return {
+            author: AuthorDto.getSigned(),
+            ...searchResult
+        };
+        // return this.fakeSearch(searchQuery);
+    }
+
+    // private fakeSearch(searchQuery: any): SearchResponseDto {
     //     return {
-    //         author: {
-    //             name:"Luis",
-    //             lastname: "Arcos"
-    //         },
-    //         item:{
-    //            id: id,
-    //            title: "audifonos-"+id,
-    //            picture: "https://http2.mlstatic.com/D_923638-MLA54361048207_032023-I.jpg",
-    //            description: "wenos wenos los audifonos! vamos!",
-    //            price:{
-    //             amount:1500,
-    //             currency:"CLP",
-    //             decimals:0
-    //            }
-    //         }
+    //         author: AuthorDto.getSigned(),
+    //         categories: ['fcat001','fcat002','fcat003'],
+    //         items:[
+    //             this.fakeItem('001'),
+    //             this.fakeItem('002')
+    //         ]
     //     }
     // }
 
-
+    // private fakeItem(id: string): ItemDto {
+    //     return {
+    //         id: id,
+    //         title: "audifonos-" + id,
+    //         picture: "https://http2.mlstatic.com/D_923638-MLA54361048207_032023-I.jpg",
+    //         condition:'new',
+    //         free_shipping: true,
+    //         price: {
+    //             amount: 1500,
+    //             currency: "CLP",
+    //             decimals: 0
+    //         }
+    //     }
+    // }
 }

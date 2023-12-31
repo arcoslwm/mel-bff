@@ -6,7 +6,7 @@ import { ItemDto } from "../dto/response/item.dto";
 export class ItemMapper {
     public static map(itemInput: any, descriptionInput?: any): ItemDto {
         /**
-         * @todo sold_quantity se esta dejandoe n 0 por defecto ya que no se encuentra el dato en las respuestas de la API MeLi
+         * @todo sold_quantity se esta dejando n 0 por defecto ya que no se encuentra el dato en las respuestas de la API MeLi
         */
         const { id, title, condition, thumbnail: picture, shipping: { free_shipping = false } = {}, price, currency_id:currency } = itemInput;
         const decimals: number = price.toString().split('.')[1]?.length || 0;

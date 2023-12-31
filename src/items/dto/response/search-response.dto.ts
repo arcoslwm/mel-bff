@@ -1,11 +1,9 @@
 import { AuthorDto } from "./author.dto";
-import { ItemDto } from "./item.dto";
+import { SearchResultDto } from "./search-result.dto";
 
 /**
  * formato de respuesta para /api/items?search="busqueda"
  */
-export class ItemsResponseDto {
+export class SearchResponseDto extends SearchResultDto {
     author: AuthorDto;
-    categories:string[];
-    items: ItemDto[];
 }
