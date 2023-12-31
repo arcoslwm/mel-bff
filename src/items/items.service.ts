@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import { ItemMapper } from './mappers/item.mapper';
 import { ItemResponseDto } from './dto/response/item-response.dto';
@@ -14,6 +14,7 @@ import { SearchResponseMapper } from './mappers/search.mapper';
 export class ItemsService {
 
     private readonly ApiBaseUrl: string;
+    private readonly logger = new Logger(ItemsService.name)
 
     constructor(private readonly httpService: HttpService, private configService: ConfigService) {
         this.ApiBaseUrl = this.configService.get<string>('MELI_BACKEND_API_BASE_URL');
@@ -34,7 +35,7 @@ export class ItemsService {
     }
 
     async search(searchQuery: MeliSearchQuery): Promise<SearchResponseDto> {
-        // console.debug(`ItemsService.search searchQuery:`, searchQuery);
+        // this.logger.log(`#######ItemsService.search searchQuery: ${searchQuery}`);
 
         const searchResponse = await firstValueFrom(
             this.httpService.get(`${this.ApiBaseUrl}/sites/MLA/search`,
