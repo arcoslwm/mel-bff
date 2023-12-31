@@ -34,8 +34,7 @@ export class ItemsService {
         };
     }
 
-    async search(searchQuery: MeliSearchQuery): Promise<SearchResponseDto> {
-        // this.logger.log(`#######ItemsService.search searchQuery: ${searchQuery}`);
+    async search(searchQuery: MeliSearchQuery): Promise<SearchResponseDto> {;
 
         const searchResponse = await firstValueFrom(
             this.httpService.get(`${this.ApiBaseUrl}/sites/MLA/search`,
@@ -52,32 +51,5 @@ export class ItemsService {
             author: AuthorDto.getSigned(),
             ...searchResult
         };
-        // return this.fakeSearch(searchQuery);
     }
-
-    // private fakeSearch(searchQuery: any): SearchResponseDto {
-    //     return {
-    //         author: AuthorDto.getSigned(),
-    //         categories: ['fcat001','fcat002','fcat003'],
-    //         items:[
-    //             this.fakeItem('001'),
-    //             this.fakeItem('002')
-    //         ]
-    //     }
-    // }
-
-    // private fakeItem(id: string): ItemDto {
-    //     return {
-    //         id: id,
-    //         title: "audifonos-" + id,
-    //         picture: "https://http2.mlstatic.com/D_923638-MLA54361048207_032023-I.jpg",
-    //         condition:'new',
-    //         free_shipping: true,
-    //         price: {
-    //             amount: 1500,
-    //             currency: "CLP",
-    //             decimals: 0
-    //         }
-    //     }
-    // }
 }
