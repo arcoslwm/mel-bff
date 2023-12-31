@@ -34,11 +34,14 @@ export class ItemsController {
          * @todo validar parametros de busqueda con limite 4(?)
          */
         try {
-            return await this.itemsService.search(searchQuery);
+            const searchResponseDto: SearchResponseDto = await this.itemsService.search(searchQuery);
+            if (searchResponseDto.items.length===0) {
+                throw new NotFoundException(null, '');
+            } 
+            return searchResponseDto;
         } catch (error) {
-            let logged = false;
-            if (error instanceof AxiosError && error.response?.status == HttpStatus.NOT_FOUND) {
-                    throw new NotFoundException(null, 'No encontrado');
+            if (error instanceof NotFoundException || (error instanceof AxiosError && error.response?.status == HttpStatus.NOT_FOUND)) {
+                    throw new NotFoundException(null, 'Busqueda sin resultados');
             }
             this.logger.error(error, `itemSearch`);
             throw new HttpException('Hemos tenido un problema en la busqueda', HttpStatus.INTERNAL_SERVER_ERROR);
