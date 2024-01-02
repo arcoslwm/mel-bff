@@ -8,8 +8,8 @@ Api bff de prueba sobre nestjs.
 
 ## Instalacion
 
--crear el archivo .env en la raiz del proyecto o con una copia del env.example
--setear en el .env la variable: MELI_BACKEND_API_BASE_URL. para el caso de uso debe ser:
+- crear el archivo .env en la raiz del proyecto o con una copia del env.example
+- setear en el .env la variable: MELI_BACKEND_API_BASE_URL. para el caso de uso debe ser:
 MELI_BACKEND_API_BASE_URL=https://api.mercadolibre.com/
 
 ```bash
@@ -61,6 +61,5 @@ $ npm run test:cov
 
 
 ## Todo
--test
--healtcheckers livez and readinness
--documentar API https://docs.nestjs.com/openapi/introduction
+- healtcheckers livez and readinness
+- documentar API https://docs.nestjs.com/openapi/introduction
