@@ -52,14 +52,12 @@ curl --location --request GET 'http://localhost:3001/api/items/MLA817704273'
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
 # test coverage
 $ npm run test:cov
 ```
 
 
 ## Todo
+- agregar tests end to end
 - healtcheckers livez and readinness
 - documentar API https://docs.nestjs.com/openapi/introduction
