@@ -6,7 +6,7 @@ Api bff de prueba sobre nestjs.
 ## requisitos:
 - node>=v20.10 && npm >=10.2.3
 
-## Instalacion
+## Instalación
 
 - crear el archivo .env en la raiz del proyecto o con una copia del env.example
 - setear en el .env la variable: MELI_BACKEND_API_BASE_URL. para el caso de uso debe ser:
